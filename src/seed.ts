@@ -1,8 +1,141 @@
-import { uid, createWork, createPage } from './model';
-import type { AppData } from './types';
+import { uid, createWork, createPage } from "./model";
+import type { AppData } from "./types";
 export function initialData(): AppData {
-  const categories = ['人物','髪型','髪色','表情','顔','目','視線','体型','ポーズ','手','服装','背景','カメラ','アングル','構図','ライティング','画風','品質','その他'].map(name => ({id:uid(),name}));
-  const starters = [ ['視線','こちらを見る','looking at viewer'], ['表情','微笑み','smile'], ['表情','驚く','surprised'], ['背景','室内','indoors'], ['背景','夜の街','city at night'], ['ライティング','柔らかい光','soft lighting'], ['ライティング','逆光','backlighting'], ['画風','アニメ調','anime style'], ['品質','高品質','masterpiece, best quality'], ['ポーズ','振り向く','looking back'], ['構図','顔アップ','close-up'], ['構図','上半身','upper body'], ['構図','全身','full body'], ['アングル','俯瞰','from above'], ['アングル','煽り','from below'], ['カメラ','POV','pov'] ];
-  return {schemaVersion:1,works:[],categories,dictionary:starters.map(([cat,name,text])=>({id:uid(),name,text,categoryId:categories.find(c=>c.name===cat)!.id,favorite:false,uses:0,lastUsedAt:null,memo:''})),characters:[],templates:[['顔アップ','close-up'],['上半身','upper body'],['全身','full body'],['会話','talking, two people'],['振り向き','looking back'],['俯瞰','from above'],['煽り','from below'],['POV','pov']].map(([name,prompt])=>({id:uid(),name,prompt,negative:'',memo:''})),presets:[['基本品質','masterpiece, best quality','low quality, blurry'],['室内','indoors',''],['夜','night',''],['バストアップ','upper body',''],['全身','full body',''],['アニメ調','anime style','']].map(([name,prompt,negative])=>({id:uid(),name,prompt,negative,memo:''})),settings:{activeWorkId:'',activePageId:'',autoAdvance:true}};
+  const categories = [
+    "人物",
+    "髪型",
+    "髪色",
+    "表情",
+    "顔",
+    "目",
+    "視線",
+    "体型",
+    "ポーズ",
+    "手",
+    "服装",
+    "背景",
+    "カメラ",
+    "アングル",
+    "構図",
+    "ライティング",
+    "画風",
+    "品質",
+    "その他",
+  ].map((name) => ({ id: uid(), name }));
+  const starters = [
+    ["視線", "こちらを見る", "looking at viewer"],
+    ["表情", "微笑み", "smile"],
+    ["表情", "驚く", "surprised"],
+    ["背景", "室内", "indoors"],
+    ["背景", "夜の街", "city at night"],
+    ["ライティング", "柔らかい光", "soft lighting"],
+    ["ライティング", "逆光", "backlighting"],
+    ["画風", "アニメ調", "anime style"],
+    ["品質", "高品質", "masterpiece, best quality"],
+    ["ポーズ", "振り向く", "looking back"],
+    ["構図", "顔アップ", "close-up"],
+    ["構図", "上半身", "upper body"],
+    ["構図", "全身", "full body"],
+    ["アングル", "俯瞰", "from above"],
+    ["アングル", "煽り", "from below"],
+    ["カメラ", "POV", "pov"],
+  ];
+  return {
+    schemaVersion: 1,
+    works: [],
+    categories,
+    dictionary: starters.map(([cat, name, text]) => ({
+      id: uid(),
+      name,
+      text,
+      categoryId: categories.find((c) => c.name === cat)!.id,
+      favorite: false,
+      uses: 0,
+      lastUsedAt: null,
+      memo: "",
+    })),
+    characters: [],
+    templates: [
+      ["顔アップ", "close-up"],
+      ["上半身", "upper body"],
+      ["全身", "full body"],
+      ["会話", "talking, two people"],
+      ["振り向き", "looking back"],
+      ["俯瞰", "from above"],
+      ["煽り", "from below"],
+      ["POV", "pov"],
+    ].map(([name, prompt]) => ({
+      id: uid(),
+      name,
+      prompt,
+      negative: "",
+      memo: "",
+    })),
+    presets: [
+      ["基本品質", "masterpiece, best quality", "low quality, blurry"],
+      ["室内", "indoors", ""],
+      ["夜", "night", ""],
+      ["バストアップ", "upper body", ""],
+      ["全身", "full body", ""],
+      ["アニメ調", "anime style", ""],
+    ].map(([name, prompt, negative]) => ({
+      id: uid(),
+      name,
+      prompt,
+      negative,
+      memo: "",
+    })),
+    settings: { activeWorkId: "", activePageId: "", autoAdvance: true },
+  };
 }
-export function demoWork() { const work = createWork('放課後、ふたりのアトリエ', '', '葵・凛'); work.memo = '夕暮れの美術室。いつもより少し素直になれる、ふたりの短い物語。'; work.commonPrompt = 'anime style, masterpiece, best quality'; work.commonNegative = 'low quality, blurry, bad anatomy'; const scene = {id:uid(),name:'夕暮れのアトリエ',background:'art studio',outfit:'school uniform',time:'sunset',lighting:'warm soft lighting',prompt:'',negative:'',memo:'窓側から柔らかい光'}; work.scenes.push(scene); const titles = ['いつもの放課後','何を描いてるの？','窓辺で振り向く','少しだけ照れた顔','ふたりの約束','明日も、ここで']; work.pages=titles.map((title,i)=>{const page=createPage(i+1,title); page.sceneId=scene.id; page.memo=['美術室の全景。窓から夕日が差し込む。','画材を片付けながら話すふたり。','声をかけられて葵が振り向く。','凛の表情を大きく。柔らかな微笑み。','机越しに視線が合う。','空っぽのアトリエと夕焼け。'][i]; page.prompt=['wide shot, empty classroom','two people, talking','looking back, upper body','close-up, smile','two people, looking at each other','wide shot, sunset'][i]; page.status=i<2?'完成':i===2?'生成済み':i===3?'再生成':'未作成'; if(i===3)page.reasons=['表情','手'];return page;}); return work; }
+export function demoWork() {
+  const work = createWork("放課後、ふたりのアトリエ", "", "葵・凛");
+  work.memo = "夕暮れの美術室。いつもより少し素直になれる、ふたりの短い物語。";
+  work.commonPrompt = "anime style, masterpiece, best quality";
+  work.commonNegative = "low quality, blurry, bad anatomy";
+  const scene = {
+    id: uid(),
+    name: "夕暮れのアトリエ",
+    background: "art studio",
+    outfit: "school uniform",
+    time: "sunset",
+    lighting: "warm soft lighting",
+    prompt: "",
+    negative: "",
+    memo: "窓側から柔らかい光",
+  };
+  work.scenes.push(scene);
+  const titles = [
+    "いつもの放課後",
+    "何を描いてるの？",
+    "窓辺で振り向く",
+    "少しだけ照れた顔",
+    "ふたりの約束",
+    "明日も、ここで",
+  ];
+  work.pages = titles.map((title, i) => {
+    const page = createPage(i + 1, title);
+    page.sceneId = scene.id;
+    page.memo = [
+      "美術室の全景。窓から夕日が差し込む。",
+      "画材を片付けながら話すふたり。",
+      "声をかけられて葵が振り向く。",
+      "凛の表情を大きく。柔らかな微笑み。",
+      "机越しに視線が合う。",
+      "空っぽのアトリエと夕焼け。",
+    ][i];
+    page.prompt = [
+      "wide shot, empty classroom",
+      "two people, talking",
+      "looking back, upper body",
+      "close-up, smile",
+      "two people, looking at each other",
+      "wide shot, sunset",
+    ][i];
+    page.status =
+      i < 2 ? "完成" : i === 2 ? "生成済み" : i === 3 ? "再生成" : "未作成";
+    if (i === 3) page.reasons = ["表情", "手"];
+    return page;
+  });
+  return work;
+}
