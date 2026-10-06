@@ -37,18 +37,18 @@ export function App() {
     if (next === "works") setWorkId("");
     setTab(next);
     setEditing(false);
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
   const openWork = (id: string) => {
     setWorkId(id);
     setEditing(false);
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
   const backToWork = () => {
     setTab("works");
     setWorkId(active?.id || "");
     setEditing(false);
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
   const showOverview = tab === "works" && !workId && !editing;
   const totals = data.works.reduce(
@@ -202,11 +202,11 @@ export function App() {
                 workId={workId}
                 onBack={() => {
                   setWorkId("");
-                  window.scrollTo({ top: 0, behavior: "instant" });
+                  window.scrollTo({ top: 0, behavior: "auto" });
                 }}
                 onEditPage={() => {
                   setEditing(true);
-                  window.scrollTo({ top: 0, behavior: "instant" });
+                  window.scrollTo({ top: 0, behavior: "auto" });
                 }}
                 onProduce={() => navigate("production")}
               />

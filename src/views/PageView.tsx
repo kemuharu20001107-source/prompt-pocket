@@ -52,7 +52,7 @@ export function PageView({
     mutate((d) => {
       d.settings.activePageId = id;
     });
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   }
   function edit(patch: Partial<Page>) {
     if (!work || !page) return;
