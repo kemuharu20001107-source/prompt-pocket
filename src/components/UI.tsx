@@ -1,0 +1,7 @@
+import { useState, useId, isValidElement, cloneElement, type ReactNode, type ReactElement } from 'react';
+import { STATUSES, type Status } from '../types';
+export function Field({label,children}:{label:string;children:ReactNode}){const id=useId();return <div className="field"><label htmlFor={id}>{label}</label>{isValidElement(children)?cloneElement(children as ReactElement<{id?:string}>,{id}):children}</div>;}
+export function Empty({title,children}:{title:string;children?:ReactNode}){return <div className="empty"><span className="empty-mark">＋</span><h3>{title}</h3>{children}</div>;}
+export function SectionHeader({eyebrow,title,children}:{eyebrow?:string;title:string;children?:ReactNode}){return <div className="section-header"><div>{eyebrow&&<span className="eyebrow">{eyebrow}</span>}<h2>{title}</h2></div>{children}</div>;}
+export function StatusBadge({status}:{status:Status}){return <span className={`status-badge status-${STATUSES.indexOf(status)}`}><span/>{status}</span>;}
+export function ConfirmButton({onConfirm,children,className='danger'}:{onConfirm:()=>void;children:ReactNode;className?:string}){const[armed,setArmed]=useState(false);return armed?<span className="confirm-actions"><span className="small">削除しますか？</span><button className="danger" onClick={()=>{onConfirm();setArmed(false);}}>削除する</button><button onClick={()=>setArmed(false)}>キャンセル</button></span>:<button className={className} onClick={()=>setArmed(true)}>{children}</button>;}
