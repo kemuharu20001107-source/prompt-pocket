@@ -75,4 +75,15 @@ LocalStorage:
 
 手動入力の同一語が誤って削除/重み変更される問題、複数語の重み/解除、部分括弧入力による選択喪失、細かい重みの丸め、保存取得/書込み失敗と不正JSONの上書き、インポート途中の2キー不一致、古いモーダルへの画像反映、検索キーボードと完成欄の重なり、長い本文の横はみ出しをコード上で対処した。公開ブラウザでの操作確認はユーザー担当。
 
-初期データは既存辞書のIDを維持した62項目・20カテゴリ。削除した辞書を起動時に勝手に再投入しない。Node標準テストは本文25件・保存23件、合計48件。V8等価実行では全通過。Node実行結果はGitHub Actionsの結果を確認する。
+初期データは既存辞書のIDを維持した62項目・20カテゴリ。削除した辞書を起動時に勝手に再投入しない。Node標準テストは本文25件・保存23件、合計48件。V8等価実行では全通過。Node22での構文チェックと48件のテストはGitHub Actionsで全通過（https://github.com/kemuharu20001107-source/prompt-pocket/actions/runs/37593470382）。
+
+## 公開環境
+
+- 固定アプリURL: https://prompt-pocket-seven.vercel.app
+- Vercel project ID: `prj_12iXe2qjZpu4gdwcb1tiAAEoYceE`。既存のこのプロジェクトを再利用する。
+- 配信版ソースcommit: `a3d634c9eefdd36ff7363ffbf72c00924234aae8`
+- 静的ファイルをVercel APIへ直接送り、READYを確認した。今回作成したアプリのログイン保護は無効で、ユーザーデータはブラウザ保存のみ。
+- GitHubへのpushは自動でVercelへ反映されない。修正後はweb/6ファイルを配信ルートへ再送する。固定appUrlを使い、別のdeploymentURLへ移らない。
+- IDsと配信方式は `docs/deployment.json` に保存。
+- `scripts/check-live.mjs` と `.github/workflows/check-live.yml` は、公開URLの6ファイルが認証なしHTTP200・正しいMIME・保存ソース一致か確認する。ブラウザの画面/入力/クリップボードは検査しない。
+- Vercelの公開設定更新とREADY読込は成功した一方、連携のweb_fetchは保護バイパスAPIで403になった（公開ページが403かどうかの結果ではない）。同じ失敗を繰り返さず、公開URLの確認結果とユーザーの実機確認を使う。

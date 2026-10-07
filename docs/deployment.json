@@ -1,0 +1,12 @@
+{
+  "provider": "vercel",
+  "projectId": "prj_12iXe2qjZpu4gdwcb1tiAAEoYceE",
+  "projectName": "prompt-pocket",
+  "teamId": "team_L6ibpWunV3JzRG0clLf48bCM",
+  "appUrl": "https://prompt-pocket-seven.vercel.app",
+  "sourceDirectory": "web",
+  "deploymentId": "dpl_EiRf2upABR4R1ECDqYHTa98NyiEH",
+  "sourceCommit": "a3d634c9eefdd36ff7363ffbf72c00924234aae8",
+  "mode": "static-files-api",
+  "automaticGitDeployment": false
+}

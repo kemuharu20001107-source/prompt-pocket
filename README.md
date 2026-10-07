@@ -1,5 +1,7 @@
 # Prompt Pocket
 
+公開URL: [https://prompt-pocket-seven.vercel.app](https://prompt-pocket-seven.vercel.app)
+
 スマートフォンで使う画像生成用プロンプト作成・管理ツールです。辞書の語をタップして組み合わせ、完成文を直接編集してコピーできます。
 
 ## 使い方
