@@ -87,3 +87,7 @@ LocalStorage:
 - IDsと配信方式は `docs/deployment.json` に保存。
 - `scripts/check-live.mjs` と `.github/workflows/check-live.yml` は、公開URLの6ファイルが認証なしHTTP200・正しいMIME・保存ソース一致か確認する。ブラウザの画面/入力/クリップボードは検査しない。
 - Vercelの公開設定更新とREADY読込は成功した一方、連携のweb_fetchは保護バイパスAPIで403になった（公開ページが403かどうかの結果ではない）。同じ失敗を繰り返さず、公開URLの確認結果とユーザーの実機確認を使う。
+
+## 最終確認結果
+
+公開URLの6ファイルは、認証情報・保護バイパスなしのHTTPSでHTTP200、正しいMIME、GitHub保存ソースとの完全一致を確認済み。検査: https://github.com/kemuharu20001107-source/prompt-pocket/actions/runs/37593925101 。初版の要求機能は実装済み。未完了はユーザー担当のiPhone等での実画面・日本語入力・OSコピー・保存とJSON往復の操作確認。現時点でコードレビュー/ロジック検査に残る既知の阻害不具合はない。連携の閲覧ツール403はアプリの公開配信検査とは別のコネクター権限問題。
