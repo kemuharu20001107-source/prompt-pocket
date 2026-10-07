@@ -1,0 +1,27 @@
+name: Prompt Pocket checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check JavaScript syntax
+        run: |
+          for file in web/*.js scripts/*.mjs; do
+            node --check "$file"
+          done
+      - name: Test prompt editing and local storage
+        run: npm test
